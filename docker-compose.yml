@@ -1,0 +1,48 @@
+version: "3"
+services:
+  db:
+    networks:
+      - appnet
+    build:
+      context: ./postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: "app_dev"
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+  auth-service:
+    networks:
+      - appnet
+    build:
+      context: ./auth-service
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./auth-service:/opt/app
+    environment:
+      NODE_ENV: development
+      DOTENV_CONFIG_PATH: "/opt/app/secrets/development.env"
+      AUTH_SERVICE_SECRET: ${AUTH_SERVICE_SECRET}
+      DB_CONN: ${DB_CONN_AUTH}
+    command: "yarn dev"
+    depends_on:
+      - db
+  db-helper:
+    networks:
+      - appnet
+    build:
+      context: ./todo-pro-db
+    volumes:
+      - ./todo-pro-db:/opt/app
+    environment:
+      NODE_ENV: development
+      DB_CONN: ${DB_CONN_APP}
+    command: "yarn migrate"
+    depends_on:
+      - db
+networks:
+  appnet:
+    driver: "bridge"
+volumes:
+  data:
+    driver: "local"

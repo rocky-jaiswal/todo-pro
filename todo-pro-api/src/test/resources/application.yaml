@@ -1,0 +1,7 @@
+spring:
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: create-drop
+auth:
+  jwks-uri: "http://localhost:9090/.well-known/jwks.json"
