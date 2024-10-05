@@ -1,5 +1,9 @@
 # Todo Pro
 
+## What
+
+A simple CRUD application to play around with - Next.js + TRPC & Spring Boot + JPA + Kotlin
+
 ## Setup (Dev Mode)
 
 - Start `docker-compose up --build`. This will start the DB, migrate the DB and start a Node.js JWT+JWKS Auth service
