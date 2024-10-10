@@ -23,7 +23,7 @@ function TopBar() {
       </div>
       <div className="p-4">
         <div>
-          <p className="text-l font-bold text-base-100 mx-2">
+          <p className="text-sm font-bold text-base-100 mx-2">
             Welcome, {userDetails.isSuccess ? userDetails.data?.email : 'user'}
           </p>
         </div>
