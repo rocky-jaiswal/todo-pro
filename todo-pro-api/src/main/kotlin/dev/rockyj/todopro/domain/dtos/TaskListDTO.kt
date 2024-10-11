@@ -6,5 +6,4 @@ data class TaskListDTO(
     val id: UUID?,
     val name: String,
     val description: String?,
-    val completed: Boolean?,
     val user: UserDTO)

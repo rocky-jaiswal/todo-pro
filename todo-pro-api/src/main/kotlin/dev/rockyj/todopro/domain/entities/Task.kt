@@ -5,6 +5,7 @@ import dev.rockyj.todopro.domain.dtos.UserDTO
 import jakarta.persistence.*
 import org.hibernate.Hibernate
 import java.io.Serializable
+import java.time.LocalDate
 import java.time.LocalDateTime
 import java.util.*
 
@@ -26,7 +27,7 @@ class Task: Serializable {
     var completed: Boolean? = false
 
     @Column(name = "due_by")
-    var dueBy: LocalDateTime? = null
+    var dueBy: LocalDate? = null
 
     @ManyToOne
     @JoinColumn(name = "tasklist_id")
@@ -42,9 +43,7 @@ class Task: Serializable {
             this.name!!,
             this.description,
             this.completed ?: false,
-            this.dueBy,
-            UserDTO(this.user!!.id),
-            this.taskList!!.toDTO())
+            this.dueBy)
     }
 
     override fun equals(other: Any?): Boolean {

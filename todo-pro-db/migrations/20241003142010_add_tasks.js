@@ -8,7 +8,7 @@ exports.up = async (knex) => {
     table.text('name').unique().notNullable()
     table.text('description').nullable()
     table.boolean('completed').defaultTo(false)
-    table.datetime('due_by').nullable()
+    table.date('due_by').nullable()
 
     table.uuid('tasklist_id').notNullable()
     table.uuid('user_id').notNullable()

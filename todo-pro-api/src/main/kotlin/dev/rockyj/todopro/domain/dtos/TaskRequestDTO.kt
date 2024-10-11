@@ -7,5 +7,5 @@ data class TaskRequestDTO(val userId: UUID,
                           val listId: UUID,
                           val name: String,
                           val description: String?,
-                          val dueBy: LocalDateTime?) {
+                          val dueBy: String?) {
 }

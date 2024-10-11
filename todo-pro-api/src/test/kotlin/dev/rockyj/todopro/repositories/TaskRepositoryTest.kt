@@ -66,4 +66,28 @@ class TaskRepositoryTest(
         val records = tasksRepository.findAllByUserAndTaskList(usr, list)
         assertTrue { records.size == 1 }
     }
+
+    @Test
+    fun shouldDeleteATask() {
+        val userId = UUID.randomUUID()
+
+        val usr = usersRepository.save(User().apply {
+            id = userId
+        })
+
+        val list = taskListRepository.save(TaskList().apply {
+            name = "dummy list"
+            user = usr
+        })
+
+        val task = tasksRepository.save(Task().apply {
+            name = "foo"
+            user = usr
+            taskList = list
+        })
+
+        tasksRepository.delete(task)
+        val records = tasksRepository.findAll()
+        assertTrue { records.map { it.toDTO() }.size == 0 }
+    }
 }

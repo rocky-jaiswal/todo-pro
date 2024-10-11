@@ -7,7 +7,6 @@ exports.up = async (knex) => {
     table.uuid('id').primary().defaultTo(knex.raw('uuid_generate_v4()'))
     table.text('name').unique().notNullable()
     table.text('description').nullable()
-    table.boolean('completed').defaultTo(false)
 
     table.uuid('user_id').notNullable()
 

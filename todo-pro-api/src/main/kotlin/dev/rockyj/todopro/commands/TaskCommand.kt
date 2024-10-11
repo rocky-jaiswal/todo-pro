@@ -9,14 +9,18 @@ import java.util.UUID
 @Service
 class TaskCommand(val taskService: TaskService) {
 
-    fun findAllTasksForUserAndList(userId: UUID, listId: UUID): List<TaskDTO> {
-        val tasks = taskService.findByUserIdAndListId(userId, listId)
-        return tasks
-    }
-
     fun createTask(taskRequestDTO: TaskRequestDTO): TaskDTO {
         val task = taskService.createTask(taskRequestDTO)
         return task
+    }
+
+    fun deleteTaskByUserIdAndId(userId: UUID, taskId: UUID) {
+        taskService.deleteTaskByUserIdAndId(userId, taskId)
+    }
+
+    fun markTaskAsComplete(userId: UUID, taskId: UUID): TaskDTO {
+        val dto = taskService.markTaskAsCompelete(userId, taskId)
+        return dto
     }
 
 }

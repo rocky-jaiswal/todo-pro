@@ -21,9 +21,6 @@ class TaskList: Serializable {
     @Column(columnDefinition = "TEXT")
     var description: String? = null
 
-    @Column
-    var completed: Boolean? = false
-
     @OneToMany(mappedBy = "taskList", cascade = [CascadeType.ALL], orphanRemoval = true, fetch = FetchType.LAZY)
     var tasks: List<Task> = emptyList()
 
@@ -32,7 +29,7 @@ class TaskList: Serializable {
     var user: User? = null
 
     fun toDTO(): TaskListDTO {
-        return TaskListDTO(this.id, this.name!!, this.description, this.completed ?: false , UserDTO(this.user!!.id))
+        return TaskListDTO(this.id, this.name!!, this.description, UserDTO(this.user!!.id))
     }
 
     override fun equals(other: Any?): Boolean {

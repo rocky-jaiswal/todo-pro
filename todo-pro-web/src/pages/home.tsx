@@ -1,10 +1,13 @@
+import * as React from 'react'
 import { type ReactElement } from 'react'
 import type { GetServerSidePropsContext } from 'next'
 
 import type { NextPageWithLayout } from './_app'
-
 import { api } from '../utils/api'
 import { validateCookie } from '../server/lib/token'
+
+import { Loading } from '../components/Loading'
+import { TaskList } from '../components/TaskList'
 
 import LoggedInLayout from '../components/LoggedInLayout'
 
@@ -29,6 +32,11 @@ const HomePage: NextPageWithLayout = () => {
   return (
     <>
       <h1 className="text-3xl font-bold py-5 text-blue-500">Welcome</h1>
+      {homePageData.isLoading ? (
+        <Loading />
+      ) : (
+        <TaskList listData={homePageData.data} />
+      )}
     </>
   )
 }

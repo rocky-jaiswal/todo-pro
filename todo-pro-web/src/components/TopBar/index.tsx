@@ -1,3 +1,4 @@
+import * as React from 'react'
 import { useState } from 'react'
 import { useRouter } from 'next/router'
 import { useAsync } from '../../hooks/useAsync'
@@ -18,7 +19,7 @@ function TopBar() {
 
   return (
     <div className="navbar flex justify-between bg-blue-400">
-      <div className="py-4 px-6">
+      <div className="p-4">
         <h1 className="text-3xl font-bold text-base-100">Todo Pro</h1>
       </div>
       <div className="p-4">
