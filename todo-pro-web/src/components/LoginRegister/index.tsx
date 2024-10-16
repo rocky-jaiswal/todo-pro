@@ -11,35 +11,15 @@ function LoginRegister(props: Props) {
       <button
         disabled={props.display.showLogin}
         onClick={() => props.setDisplay({ showLogin: true })}
-        className="p-4"
-        style={
-          props.display.showLogin
-            ? {
-                color: 'black',
-                opacity: 1,
-                fontWeight: 'bold',
-                textDecoration: 'underline',
-              }
-            : { color: 'blue' }
-        }
+        className={`p-4 btn-link ${props.display.showLogin ? 'text-success' : 'text-base'}`}
       >
         Login
       </button>
       <span>|</span>
       <button
         disabled={!props.display.showLogin}
-        className="p-4"
+        className={`p-4 btn-link ${!props.display.showLogin ? 'text-success' : 'text-base'}`}
         onClick={() => props.setDisplay({ showLogin: false })}
-        style={
-          props.display.showLogin
-            ? { color: 'blue' }
-            : {
-                color: 'black',
-                opacity: 1,
-                fontWeight: 'bold',
-                textDecoration: 'underline',
-              }
-        }
       >
         Register
       </button>

@@ -31,7 +31,6 @@ const HomePage: NextPageWithLayout = () => {
 
   return (
     <>
-      <h1 className="text-3xl font-bold py-5 text-blue-500">Welcome</h1>
       {homePageData.isLoading ? (
         <Loading />
       ) : (

@@ -71,4 +71,34 @@ export const taskListRouter = createTRPCRouter({
         })
       }
     }),
+  deleteList: protectedProcedure
+    .input(
+      z.object({
+        listId: z.string().uuid(),
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      try {
+        const response = await fetch(
+          `${env.MAIN_API_URL}/v1/task-lists/${input.listId}/`,
+          {
+            method: 'delete',
+            headers: {
+              authorization: `Bearer ${ctx.session.token ?? ''}`,
+              'Content-Type': 'application/json',
+            },
+          }
+        )
+
+        await response.json()
+        return {}
+      } catch (err) {
+        ctx.logger.error(err)
+        throw new TRPCError({
+          code: 'INTERNAL_SERVER_ERROR', // TODO: check / change error type based on err
+          message: 'An unexpected error occurred, please try again later.',
+          cause: err,
+        })
+      }
+    }),
 })

@@ -18,18 +18,18 @@ function TopBar() {
   })
 
   return (
-    <div className="navbar flex justify-between bg-blue-400">
+    <div className="flex w-full justify-between navbar">
       <div className="p-4">
-        <h1 className="text-3xl font-bold text-base-100">Todo Pro</h1>
+        <h1 className="text-3xl font-bold">Todo Pro</h1>
       </div>
       <div className="p-4">
         <div>
-          <p className="text-sm font-bold text-base-100 mx-2">
+          <p className="text-sm font-bold mx-2">
             Welcome, {userDetails.isSuccess ? userDetails.data?.email : 'user'}
           </p>
         </div>
         <button
-          className="btn-secondary btn bg-orange-200"
+          className="btn-secondary btn bg-info"
           onClick={() => {
             setLoggedOut(true)
           }}

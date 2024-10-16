@@ -69,7 +69,7 @@ function RegistrationForm(props: Props) {
             })
           }}
         >
-          Submit
+          Sign up
         </button>
       </form>
     </div>

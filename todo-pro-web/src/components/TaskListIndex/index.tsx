@@ -1,5 +1,4 @@
 import * as React from 'react'
-import Link from 'next/link'
 
 import { type TaskList as TaskListType } from '../../server/types'
 
@@ -9,35 +8,18 @@ interface Props {
 
 export const TaskListIndex = (props: Props) => {
   return (
-    <div>
-      <h2 className="text-2xl text-sky-400">Your Task lists</h2>
-      <table className="table table-zebra">
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Description</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          {props.listData.map((list) => {
-            return (
-              <tr key={list.id}>
-                <td>{list.name}</td>
-                <td>{list.description}</td>
-                <td>
-                  <Link
-                    className="text-blue-500 underline"
-                    href={`/task-lists/${list.id}`}
-                  >
-                    Go ›
-                  </Link>
-                </td>
-              </tr>
-            )
-          })}
-        </tbody>
-      </table>
+    <div className="flex flex-row lg:w-10/12 w-56 overflow-x-auto">
+      {props.listData.map((list) => {
+        return (
+          <div key={list.id}>
+            <div>
+              <button className="btn btn-outline btn-secondary mr-2">
+                {list.name}
+              </button>
+            </div>
+          </div>
+        )
+      })}
     </div>
   )
 }

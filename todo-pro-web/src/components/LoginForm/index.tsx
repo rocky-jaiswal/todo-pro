@@ -58,7 +58,7 @@ function LoginForm(props: Props) {
             })
           }}
         >
-          Submit
+          Login
         </button>
       </form>
       <Link href={'/'} className="py-4 text-blue-500 underline">

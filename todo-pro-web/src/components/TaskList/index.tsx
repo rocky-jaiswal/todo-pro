@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { useState } from 'react'
 
 import { type TaskList as TaskListType } from '../../server/types'
 import { CreateTaskList } from '../CreateTaskList'
@@ -9,22 +10,29 @@ interface Props {
 }
 
 export const TaskList = (props: Props) => {
+  const [displayForm, setDisplayForm] = useState<boolean>(false)
+
   if (!props.listData || props.listData?.length === 0) {
     return (
       <>
         <p>You have no lists created. Why not create one now?</p>
-        <CreateTaskList />
+        <CreateTaskList displayCreateListForm={true} />
       </>
     )
   }
 
   return (
-    <>
-      <TaskListIndex listData={props.listData} />
-      <div className="flex flex-col my-10">
-        <h2 className="text-2xl text-sky-400">Create a list</h2>
-        <CreateTaskList />
+    <div className="flex flex-col justify-between	min-w-full">
+      <div className="flex flex-row justify-between	">
+        <TaskListIndex listData={props.listData} />
+        <button
+          className="btn btn-primary"
+          onClick={() => setDisplayForm(!displayForm)}
+        >
+          {displayForm ? 'Cancel' : 'Add List'}
+        </button>
       </div>
-    </>
+      <CreateTaskList displayCreateListForm={displayForm} />
+    </div>
   )
 }

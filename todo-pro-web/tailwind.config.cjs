@@ -1,13 +1,13 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ["./src/**/*.{js,ts,jsx,tsx}"],
+  content: ['./src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {},
   },
   plugins: [require('daisyui')],
   daisyui: {
     styled: true,
-    themes: ['corporate'],
+    themes: ['synthwave'],
     base: true,
     utils: true,
     logs: true,
@@ -15,4 +15,4 @@ module.exports = {
     prefix: '',
     darkTheme: 'dark',
   },
-};
+}
