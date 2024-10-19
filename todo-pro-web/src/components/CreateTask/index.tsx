@@ -5,17 +5,31 @@ import { api } from '../../utils/api'
 
 interface Props {
   listId: string
+  onTasksUpdate: () => unknown
 }
 
 export const CreateTask = (props: Props) => {
+  const [displayForm, setDisplayForm] = useState<boolean>(false)
   const [name, setName] = useState<string>('')
-  const [description, setDescription] = useState<string>('')
   const [dueBy, setDueDate] = useState<string | null>(null)
 
   const createTaskListMutation = api.task.createTask.useMutation()
 
+  if (!displayForm) {
+    return (
+      <div className="flex flex-col items-end">
+        <button
+          className="btn btn-success"
+          onClick={() => setDisplayForm(!displayForm)}
+        >
+          {displayForm ? 'Cancel' : 'Add Todo'}
+        </button>
+      </div>
+    )
+  }
+
   return (
-    <div className="flex flex-col max-w-md">
+    <div className="flex flex-col items-end">
       <form method="post">
         <label className="input input-bordered flex items-center gap-2 py-2 my-2">
           Name *:
@@ -27,14 +41,6 @@ export const CreateTask = (props: Props) => {
           />
         </label>
         <label className="input input-bordered flex items-center gap-2 py-2 my-2">
-          Description:
-          <input
-            type="text"
-            placeholder="Description"
-            onChange={(e) => setDescription(e.currentTarget.value)}
-          />
-        </label>
-        <label className="input input-bordered flex items-center gap-2 py-2 my-2">
           Due By:
           <input
             type="date"
@@ -42,23 +48,34 @@ export const CreateTask = (props: Props) => {
             onChange={(e) => setDueDate(e.currentTarget.value)}
           />
         </label>
-        <button
-          className="btn btn-primary p-2 my-4"
-          type="submit"
-          disabled={createTaskListMutation.isLoading}
-          onClick={(e) => {
-            e.preventDefault()
-            createTaskListMutation.mutate({
-              name,
-              description,
-              dueBy,
-              listId: props.listId,
-            })
-          }}
-        >
-          Create Todo
-        </button>
+        <div className="flex justify-end">
+          <button
+            className="btn btn-success p-2 my-4"
+            type="submit"
+            disabled={createTaskListMutation.isLoading}
+            onClick={(e) => {
+              e.preventDefault()
+              createTaskListMutation
+                .mutateAsync({
+                  name,
+                  description: null,
+                  dueBy,
+                  listId: props.listId,
+                })
+                .then(() => props.onTasksUpdate())
+                .catch((err) => console.error(err)) // TODO: Handle this error
+            }}
+          >
+            Add Todo
+          </button>
+        </div>
       </form>
+      <button
+        className="btn btn-outline btn-ghost"
+        onClick={() => setDisplayForm(false)}
+      >
+        Cancel
+      </button>
     </div>
   )
 }

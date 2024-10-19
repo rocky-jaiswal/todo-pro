@@ -4,6 +4,8 @@ import { type TaskList as TaskListType } from '../../server/types'
 
 interface Props {
   listData: TaskListType[]
+  selectedList: string
+  setSelectedList: (listId: string) => void
 }
 
 export const TaskListIndex = (props: Props) => {
@@ -12,11 +14,12 @@ export const TaskListIndex = (props: Props) => {
       {props.listData.map((list) => {
         return (
           <div key={list.id}>
-            <div>
-              <button className="btn btn-outline btn-secondary mr-2">
-                {list.name}
-              </button>
-            </div>
+            <button
+              className={`btn ${props.selectedList === list.id ? 'btn-accent' : 'btn-outline btn-secondary'} mr-2`}
+              onClick={() => props.setSelectedList(list.id)}
+            >
+              {list.name}
+            </button>
           </div>
         )
       })}

@@ -17,6 +17,7 @@
     "@trpc/react-query": "^10.45.0",
     "@trpc/server": "^10.45.0",
     "cookie": "^0.6.0",
+    "date-fns": "^4.1.0",
     "dotenv": "^16.0.3",
     "jsonwebtoken": "^9.0.0",
     "jwks-rsa": "^3.0.1",

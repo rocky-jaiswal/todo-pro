@@ -53,8 +53,9 @@ class TaskListsController(val command: TaskListCommand) {
     }
 
     @DeleteMapping("/{id}/")
-    fun deleteList(@PathVariable("id") @NotNull listId: UUID) {
+    fun deleteList(@PathVariable("id") @NotNull listId: UUID): Map<String, String> {
         val userId = getUserIdFromSecurityContext()
         command.deleteTaskListByUserIdAndId(userId, listId)
+        return mapOf(Pair("id", listId.toString()))
     }
 }
