@@ -13,6 +13,7 @@ interface Props {
 
 export const ListDisplay = (props: Props) => {
   const deleteListMutation = api.taskList.deleteList.useMutation()
+  const detailsRef = React.useRef(null)
 
   return (
     <div className="flex flex-row justify-between items-baseline border rounded-md p-4 my-4">
@@ -25,7 +26,7 @@ export const ListDisplay = (props: Props) => {
         </p>
       </div>
       <div>
-        <details className="dropdown dropdown-end">
+        <details className="dropdown dropdown-end" ref={detailsRef}>
           <summary className="btn m-1">
             <Image src="/dots.png" width={20} height={20} alt="actions" />
           </summary>
@@ -38,6 +39,9 @@ export const ListDisplay = (props: Props) => {
                 disabled={deleteListMutation.isLoading}
                 onClick={(e) => {
                   e.preventDefault()
+                  // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+                  detailsRef.current &&
+                    detailsRef.current.removeAttribute('open')
                   deleteListMutation
                     .mutateAsync({
                       listId: props.taskListData.id,

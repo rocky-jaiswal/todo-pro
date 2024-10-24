@@ -37,6 +37,7 @@ export const CreateTask = (props: Props) => {
             type="text"
             placeholder="Name"
             required={true}
+            value={name}
             onChange={(e) => setName(e.currentTarget.value)}
           />
         </label>
@@ -45,6 +46,7 @@ export const CreateTask = (props: Props) => {
           <input
             type="date"
             placeholder="Due Date"
+            value={dueBy || ''}
             onChange={(e) => setDueDate(e.currentTarget.value)}
           />
         </label>
@@ -52,7 +54,7 @@ export const CreateTask = (props: Props) => {
           <button
             className="btn btn-success p-2 my-4"
             type="submit"
-            disabled={createTaskListMutation.isLoading}
+            disabled={!name || createTaskListMutation.isLoading}
             onClick={(e) => {
               e.preventDefault()
               createTaskListMutation
@@ -62,11 +64,19 @@ export const CreateTask = (props: Props) => {
                   dueBy,
                   listId: props.listId,
                 })
-                .then(() => props.onTasksUpdate())
+                .then(() => {
+                  setName('')
+                  setDueDate(null)
+                  props.onTasksUpdate()
+                })
                 .catch((err) => console.error(err)) // TODO: Handle this error
             }}
           >
-            Add Todo
+            {createTaskListMutation.isLoading ? (
+              <span className="loading loading-spinner loading-xs" />
+            ) : (
+              'Add Todo'
+            )}
           </button>
         </div>
       </form>

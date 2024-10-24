@@ -20,7 +20,7 @@ function TopBar() {
   return (
     <div className="flex w-full justify-between navbar">
       <div className="p-4">
-        <h1 className="text-3xl font-bold">Todo Pro</h1>
+        <h1 className="text-3xl font-bold">To-do Pro</h1>
       </div>
       <div className="p-4">
         <div>

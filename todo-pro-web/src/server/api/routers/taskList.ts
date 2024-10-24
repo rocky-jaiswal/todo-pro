@@ -89,8 +89,6 @@ export const taskListRouter = createTRPCRouter({
           }
         )
 
-        await new Promise((res) => setTimeout(res, 1000))
-
         const tasks = (await response.json()) as unknown
 
         return tasks as Task[]

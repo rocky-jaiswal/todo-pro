@@ -1,4 +1,3 @@
-import { z } from 'zod'
 import { TRPCError } from '@trpc/server'
 
 import type { TaskList } from '../../types'
@@ -28,8 +27,6 @@ export const homeRouter = createTRPCRouter({
       })
 
       const responseBody = (await response.json()) as unknown
-
-      await new Promise((res) => setTimeout(res, 1000))
 
       return responseBody as TaskList[]
     } catch (err) {

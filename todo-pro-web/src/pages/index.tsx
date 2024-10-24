@@ -4,7 +4,7 @@ import Head from 'next/head'
 import Image from 'next/image'
 
 import LoginForm from '../components/LoginForm'
-import SocialLogin from '../components/SocialLogin'
+// import SocialLogin from '../components/SocialLogin'
 import RegistrationForm from '../components/RegistrationForm'
 import LoginRegister from '../components/LoginRegister'
 
@@ -16,16 +16,16 @@ const Home: NextPage = () => {
   const [display, setDisplay] = useState<ShowLogin>({ showLogin: true })
 
   return (
-    <div className="flex items-start justify-center">
+    <div>
       <Head>
         <title>Todo Pro</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="icon" href="/favicon.svg" />
       </Head>
-      <main className="flex flex-col lg:flex-row min-h-screen max-w-7xl">
+      <main className="flex flex-col min-h-screen lg:flex-row max-w-7xl">
         <div className="flex flex-col p-8 lg:w-1/2">
           <div className="p-4 text-white">
-            <h1 className="text-4xl">Welcome to Todo Pro</h1>
+            <h1 className="text-4xl">Welcome to To-do Pro</h1>
           </div>
           <div className="mt-4 w-full">
             <Image
@@ -41,8 +41,7 @@ const Home: NextPage = () => {
           <LoginRegister display={display} setDisplay={setDisplay} />
           <LoginForm display={display.showLogin} />
           <RegistrationForm display={!display.showLogin} />
-          <hr />
-          <SocialLogin />
+          {/* <SocialLogin /> */}
         </div>
       </main>
     </div>
