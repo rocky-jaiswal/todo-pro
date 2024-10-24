@@ -3,10 +3,10 @@ import { useState } from 'react'
 import { useRouter } from 'next/router'
 import { useAsync } from '../../hooks/useAsync'
 
-import { api } from '../../utils/api'
+// import { api } from '../../utils/api'
 
 function TopBar() {
-  const userDetails = api.users.userDetails.useQuery()
+  // const userDetails = api.users.userDetails.useQuery()
 
   const router = useRouter()
   const [isLoggedOut, setLoggedOut] = useState(false)
@@ -24,9 +24,7 @@ function TopBar() {
       </div>
       <div className="p-4">
         <div>
-          <p className="text-sm font-bold mx-2">
-            Welcome, {userDetails.isSuccess ? userDetails.data?.email : 'user'}
-          </p>
+          <p className="text-sm font-bold mx-2">Welcome, user</p>
         </div>
         <button
           className="btn-secondary btn bg-info"

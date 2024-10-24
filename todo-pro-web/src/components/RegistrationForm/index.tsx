@@ -25,9 +25,16 @@ function RegistrationForm(props: Props) {
 
   return (
     <div
-      className="flex flex-col p-4 lg:w-2/3"
+      className="flex flex-col p-4"
       style={props.display ? { display: 'flex' } : { display: 'none' }}
     >
+      {createUserMutation.isError ? (
+        <span className="alert alert-error my-4">
+          {createUserMutation.error.message}!
+        </span>
+      ) : (
+        ''
+      )}
       <form>
         <div className="mb-4 grid grid-cols-2 gap-2">
           <div className="flex items-center">Email:</div>
@@ -62,11 +69,13 @@ function RegistrationForm(props: Props) {
           disabled={createUserMutation.isLoading}
           onClick={(e) => {
             e.preventDefault()
-            createUserMutation.mutate({
-              email,
-              password,
-              confirmedPassword,
-            })
+            if (email && password && confirmedPassword) {
+              createUserMutation.mutate({
+                email,
+                password,
+                confirmedPassword,
+              })
+            }
           }}
         >
           Sign up

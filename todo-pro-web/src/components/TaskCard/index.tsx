@@ -62,9 +62,9 @@ export const TaskCard = (props: Props) => {
                 Mark done
               </button>
             </li>
-            <li>
+            {/* <li>
               <button>Edit</button>
-            </li>
+            </li> */}
             <li>
               <button
                 disabled={deleteTaskMutation.isLoading}

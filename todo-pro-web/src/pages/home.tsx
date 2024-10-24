@@ -33,9 +33,11 @@ const HomePage: NextPageWithLayout = () => {
 
   const taskListQuery = api.home.findUserAndLists.useQuery()
 
-  if (!selectedList && taskListQuery.data) {
+  if (!selectedList && taskListQuery.isSuccess && taskListQuery.data) {
     // console.log(selectedList)
-    setSelectedList(taskListQuery.data[0]?.id ?? null)
+    if (taskListQuery.data[0]?.id) {
+      setSelectedList(taskListQuery.data[0].id)
+    }
   }
 
   const taskListDataQuery = api.taskList.getListDetails.useQuery(
@@ -53,17 +55,18 @@ const HomePage: NextPageWithLayout = () => {
   )
 
   if (
-    taskListDataQuery.isLoading ||
-    taskListQuery.isLoading ||
-    !taskListQuery.data ||
-    taskDataQuery.isLoading ||
-    !taskListDataQuery.data ||
-    !taskDataQuery.data
+    taskListDataQuery.isError ||
+    taskDataQuery.isError ||
+    taskListQuery.isError
   ) {
-    return <Loading />
+    return (
+      <span className="alert alert-error my-4">
+        Error in fetching data! Please try again later.
+      </span>
+    )
   }
 
-  if (taskListQuery.data.length === 0) {
+  if (taskListQuery.isSuccess && taskListQuery.data?.length === 0) {
     return (
       <>
         <p>You have no lists created. Why not create one now?</p>
@@ -74,6 +77,17 @@ const HomePage: NextPageWithLayout = () => {
         />
       </>
     )
+  }
+
+  if (
+    taskListQuery.isLoading ||
+    taskListDataQuery.isLoading ||
+    taskDataQuery.isLoading ||
+    !taskListQuery.data ||
+    !taskListDataQuery.data ||
+    !taskDataQuery.data
+  ) {
+    return <Loading />
   }
 
   return (

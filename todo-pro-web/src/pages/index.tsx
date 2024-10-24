@@ -18,7 +18,7 @@ const Home: NextPage = () => {
   return (
     <div>
       <Head>
-        <title>Todo Pro</title>
+        <title>To-do Pro</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="icon" href="/favicon.svg" />
       </Head>

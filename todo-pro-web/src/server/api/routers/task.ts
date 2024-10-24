@@ -1,10 +1,10 @@
 import { z } from 'zod'
-import { TRPCError } from '@trpc/server'
 
 import type { Task } from '../../types'
 
 import { env } from '../../../env/server.mjs'
 import { createTRPCRouter, protectedProcedure } from '../trpc'
+import { sendServerRequest } from '../../lib/serverRequest'
 
 export const taskRouter = createTRPCRouter({
   createTask: protectedProcedure
@@ -17,31 +17,21 @@ export const taskRouter = createTRPCRouter({
       })
     )
     .mutation(async ({ ctx, input }) => {
-      try {
-        const response = await fetch(`${env.MAIN_API_URL}/v1/tasks/`, {
-          method: 'post',
-          body: JSON.stringify({
-            name: input.name,
-            description: input.description,
-            dueBy: input.dueBy,
-            listId: input.listId,
-          }),
-          headers: {
-            authorization: `Bearer ${ctx.session.token ?? ''}`,
-            'Content-Type': 'application/json',
-          },
-        })
+      const responseBody = (await sendServerRequest(
+        `${env.MAIN_API_URL}/v1/tasks/`,
+        'post',
+        JSON.stringify({
+          name: input.name,
+          description: input.description,
+          dueBy: input.dueBy,
+          listId: input.listId,
+        }),
+        'creating task',
+        ctx.logger,
+        ctx.session.token
+      )) as Task
 
-        const body = (await response.json()) as unknown
-        return body as Task
-      } catch (err) {
-        ctx.logger.error(err)
-        throw new TRPCError({
-          code: 'INTERNAL_SERVER_ERROR', // TODO: check / change error type based on err
-          message: 'An unexpected error occurred, please try again later.',
-          cause: err,
-        })
-      }
+      return responseBody
     }),
   markAsCompleted: protectedProcedure
     .input(
@@ -50,28 +40,16 @@ export const taskRouter = createTRPCRouter({
       })
     )
     .mutation(async ({ ctx, input }) => {
-      try {
-        const response = await fetch(
-          `${env.MAIN_API_URL}/v1/tasks/${input.id}/completion/`,
-          {
-            method: 'post',
-            headers: {
-              authorization: `Bearer ${ctx.session.token ?? ''}`,
-              'Content-Type': 'application/json',
-            },
-          }
-        )
+      const responseBody = (await sendServerRequest(
+        `${env.MAIN_API_URL}/v1/tasks/${input.id}/completion/`,
+        'post',
+        undefined,
+        'completing task',
+        ctx.logger,
+        ctx.session.token
+      )) as Task
 
-        const body = (await response.json()) as unknown
-        return body as Task
-      } catch (err) {
-        ctx.logger.error(err)
-        throw new TRPCError({
-          code: 'INTERNAL_SERVER_ERROR', // TODO: check / change error type based on err
-          message: 'An unexpected error occurred, please try again later.',
-          cause: err,
-        })
-      }
+      return responseBody
     }),
   deleteTask: protectedProcedure
     .input(
@@ -80,29 +58,15 @@ export const taskRouter = createTRPCRouter({
       })
     )
     .mutation(async ({ ctx, input }) => {
-      try {
-        const response = await fetch(
-          `${env.MAIN_API_URL}/v1/tasks/${input.id}/`,
-          {
-            method: 'delete',
-            headers: {
-              authorization: `Bearer ${ctx.session.token ?? ''}`,
-              'Content-Type': 'application/json',
-            },
-          }
-        )
+      const _responseBody = (await sendServerRequest(
+        `${env.MAIN_API_URL}/v1/tasks/${input.id}/`,
+        'delete',
+        undefined,
+        'deleting task',
+        ctx.logger,
+        ctx.session.token
+      )) as Task
 
-        // await new Promise((res) => setTimeout(res, 2000))
-
-        await response.json()
-        return {}
-      } catch (err) {
-        ctx.logger.error(err)
-        throw new TRPCError({
-          code: 'INTERNAL_SERVER_ERROR', // TODO: check / change error type based on err
-          message: 'An unexpected error occurred, please try again later.',
-          cause: err,
-        })
-      }
+      return {}
     }),
 })
