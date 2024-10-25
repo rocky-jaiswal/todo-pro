@@ -14,13 +14,21 @@ const getKey = async (header: JwtHeader) => client.getSigningKey(header.kid)
 
 export const encryptToken = async (token: string) => {
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
-  const sealed = await Iron.seal(token, `${env.SECRET}`, Iron.defaults)
+  const sealed = await Iron.seal(
+    token,
+    `${env.WEB_TOKEN_SECRET}`,
+    Iron.defaults
+  )
   return sealed
 }
 
 export const decryptToken = async (token: string) => {
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
-  const unsealed = await Iron.unseal(token, `${env.SECRET}`, Iron.defaults)
+  const unsealed = await Iron.unseal(
+    token,
+    `${env.WEB_TOKEN_SECRET}`,
+    Iron.defaults
+  )
   return unsealed as string
 }
 

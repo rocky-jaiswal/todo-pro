@@ -10,8 +10,7 @@ Basically a fast Node.js based JWT service, which also supports Google OAuth. I 
 2. Copy secret omitted from command above (keyid & key password) in "secrets/<_environment_>.env" (e.g. secrets/development.env)
 3. Generate a strong secret/password somehow (e.g. `crypto.randomUUID().replaceAll('-', '').substring(0, 16)`)
 4. Run `node bin/lockSecret.mjs <environment> <secret>` to encrypt secrets, use secret/password from step 3 here (encryption uses Node GPG)
-5. Run `just dev` to start service in dev mode (DB is already running on docker)
-6. For testing make sure DB is up (via docker-compose) and run `just test`
+5. Run `yarn dev` to start service in dev mode (DB should already be running on docker)
 
 ## Common HTTP requests (using HTTPIE)
 

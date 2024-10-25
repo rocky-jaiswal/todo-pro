@@ -9,9 +9,9 @@ spring:
     dialect: POSTGRES
     username: app_dev
     password: ${DB_PASS}
-    url: "jdbc:postgresql://localhost:5432/todo_pro_dev"
+    url: "jdbc:postgresql://db:5432/todo_pro_dev"
   jpa:
-    show_sql: true
+    show_sql: false
     hibernate:
       ddl-auto: validate
 auth:

@@ -7,7 +7,8 @@
     "clean": "rm -rf dist/ && mkdir dist",
     "build": "yarn tsc && cp -R src/keys dist/keys && cp -R src/public dist/public",
     "secrets:unlock": "node bin/unlockSecret.mjs $NODE_ENV $AUTH_SERVICE_SECRET",
-    "dev": "yarn && yarn clean && yarn build && yarn secrets:unlock && DOTENV_CONFIG_PATH=$DOTENV_CONFIG_PATH DB_CONN=$DB_CONN npx knex migrate:latest && DOTENV_CONFIG_PATH=$DOTENV_CONFIG_PATH DB_CONN=$DB_CONN npx nodemon src/index.ts"
+    "dev": "yarn && yarn clean && yarn build && yarn secrets:unlock && DOTENV_CONFIG_PATH=$DOTENV_CONFIG_PATH DB_CONN=$DB_CONN npx knex migrate:latest && DOTENV_CONFIG_PATH=$DOTENV_CONFIG_PATH DB_CONN=$DB_CONN npx nodemon src/index.ts",
+    "serve": "yarn && yarn clean && yarn build && DB_CONN=$DB_CONN npx knex migrate:latest && DB_CONN=$DB_CONN node dist/index.js"
   },
   "dependencies": {
     "@fastify/oauth2": "^7.0.0",
