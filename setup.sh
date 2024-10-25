@@ -10,20 +10,14 @@ touch .env
 echo "POSTGRES_PASSWORD=$POSTGRES_PASSWORD" >> .env
 echo "AUTH_SERVICE_SECRET=$AUTH_SERVICE_SECRET" >> .env
 echo "DB_CONN_AUTH="postgresql://app_dev:$POSTGRES_PASSWORD@db:5432/auth_service_dev"" >> .env
-echo DB_CONN_APP="postgresql://app_dev:$POSTGRES_PASSWORD@db:5432/todo_pro_dev" >> .env
+echo "DB_CONN_APP="postgresql://app_dev:$POSTGRES_PASSWORD@db:5432/todo_pro_dev"" >> .env
 
+
+# DB data directory
 mkdir -p /opt/postgres/data
 
-# Setup auth-service
-cd auth-service/
-
-node bin/unlockSecret.mjs production $AUTH_SERVICE_SECRET
-
-cp secrets/production.env ./.env
-
 # Setup web
-
-cd ../todo-pro-web/
+cd ./todo-pro-web/
 
 touch .env
 
@@ -34,7 +28,6 @@ echo "WEB_TOKEN_SECRET=$WEB_TOKEN_SECRET" >> .env
 docker build -t rockyj/todo-pro-web .
 
 # Setup API
-
 cd ../todo-pro-api/
 
 ./gradlew bootBuildImage --imageName=rockyj/todo-pro-api
