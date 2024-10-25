@@ -14,7 +14,7 @@ echo "DB_CONN_APP="postgresql://app_dev:$POSTGRES_PASSWORD@db:5432/todo_pro_dev"
 
 
 # DB data directory
-mkdir -p /opt/postgres/data
+mkdir -p /opt/app/postgres/data
 
 # Setup web
 cd ./todo-pro-web/
