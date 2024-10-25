@@ -53,14 +53,14 @@ class TaskListService(val taskListsRepository: TaskListsRepository, val usersRep
         )
     }
 
-    @CheckOwnership(resoourceName = "taskList")
+    @CheckOwnership(resourceName = "taskList")
     fun findByUserIdAndId(userId: UUID, listId: UUID): TaskListDTO {
         val list = taskListsRepository.findByIdAndUserId(listId, userId)
 
         return list.get().toDTO()
     }
 
-    @CheckOwnership(resoourceName = "taskList")
+    @CheckOwnership(resourceName = "taskList")
     fun deleteTaskListByUserIdAndId(userId: UUID, listId: UUID): Map<String, String> {
         val list = taskListsRepository.findByIdAndUserId(listId, userId)
 

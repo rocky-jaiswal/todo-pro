@@ -46,14 +46,14 @@ class TaskService(
         return record.toDTO()
     }
 
-    @CheckOwnership(resoourceName = "taskList")
+    @CheckOwnership(resourceName = "taskList")
     fun findByUserIdAndListId(userId: UUID, listId: UUID): List<TaskDTO> {
         val tasks = tasksRepository.findAllByUserIdAndTaskListId(userId, listId)
 
         return tasks.map { it.toDTO() }
     }
 
-    @CheckOwnership(resoourceName = "task")
+    @CheckOwnership(resourceName = "task")
     fun deleteTaskByUserIdAndId(userId: UUID, taskId: UUID): Map<String, String> {
         val task = tasksRepository.findByIdAndUserId(taskId, userId)
 
@@ -62,7 +62,7 @@ class TaskService(
         return mapOf(Pair("id", taskId.toString()))
     }
 
-    @CheckOwnership(resoourceName = "task")
+    @CheckOwnership(resourceName = "task")
     fun markTaskAsCompelete(userId: UUID, taskId: UUID): TaskDTO {
         val task = tasksRepository.findByIdAndUserId(taskId, userId)
 

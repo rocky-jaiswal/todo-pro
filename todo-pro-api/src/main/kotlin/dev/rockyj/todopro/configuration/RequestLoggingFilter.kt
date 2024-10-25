@@ -133,7 +133,6 @@ class RequestLoggingFilter : OncePerRequestFilter() {
         MDC.put(MDCConstants.REQUEST_REMOTE_HOST, request.remoteHost)
         MDC.put(MDCConstants.REQUEST_USER_AGENT, request.getHeader("User-Agent"))
 
-
         // Add authenticated user if available
         Optional.ofNullable(SecurityContextHolder.getContext().authentication)
             .ifPresent { auth -> MDC.put(MDCConstants.USER, auth.getName()) }

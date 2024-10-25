@@ -33,7 +33,7 @@ class OwnershipAspect {
 
         var userId: UUID? = null
 
-        if (checkOwnership.resoourceName == "taskList") {
+        if (checkOwnership.resourceName == "taskList") {
             var listId: UUID? = null
 
             for (i in parameterNames.indices) {
@@ -59,7 +59,7 @@ class OwnershipAspect {
             }
         }
 
-        if (checkOwnership.resoourceName == "task") {
+        if (checkOwnership.resourceName == "task") {
             var taskId: UUID? = null
 
             for (i in parameterNames.indices) {
@@ -91,4 +91,4 @@ class OwnershipAspect {
 
 @Target(AnnotationTarget.FUNCTION, AnnotationTarget.PROPERTY_GETTER, AnnotationTarget.PROPERTY_SETTER)
 @Retention(AnnotationRetention.RUNTIME)
-annotation class CheckOwnership(val resoourceName: String)
+annotation class CheckOwnership(val resourceName: String)
