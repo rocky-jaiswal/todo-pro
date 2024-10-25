@@ -11,8 +11,15 @@ spring:
     password: ${DB_PASS}
     url: "jdbc:postgresql://localhost:5432/todo_pro_dev"
   jpa:
-    show_sql: true
+    # show_sql: true
     hibernate:
       ddl-auto: validate
 auth:
   jwks-uri: "http://localhost:9090/.well-known/jwks.json"
+logging:
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%-5level] [%-23thread] [%X{correlationId}] [%X{requestMethod}] [%X{requestUri}] [%X{user}] %logger{36} - %msg%n"
+  level:
+    root: INFO
+    dev.rockyj.todopro: DEBUG
+    org.springframework.web: INFO

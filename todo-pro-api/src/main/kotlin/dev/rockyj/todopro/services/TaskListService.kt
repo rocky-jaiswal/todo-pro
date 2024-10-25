@@ -61,9 +61,11 @@ class TaskListService(val taskListsRepository: TaskListsRepository, val usersRep
     }
 
     @CheckOwnership(resoourceName = "taskList")
-    fun deleteTaskListByUserIdAndId(userId: UUID, listId: UUID) {
+    fun deleteTaskListByUserIdAndId(userId: UUID, listId: UUID): Map<String, String> {
         val list = taskListsRepository.findByIdAndUserId(listId, userId)
 
         taskListsRepository.delete(list.get())
+
+        return mapOf(Pair("id", listId.toString()))
     }
 }

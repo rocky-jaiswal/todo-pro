@@ -90,7 +90,5 @@ class OwnershipAspect {
 }
 
 @Target(AnnotationTarget.FUNCTION, AnnotationTarget.PROPERTY_GETTER, AnnotationTarget.PROPERTY_SETTER)
-@Retention(
-    AnnotationRetention.RUNTIME
-)
+@Retention(AnnotationRetention.RUNTIME)
 annotation class CheckOwnership(val resoourceName: String)

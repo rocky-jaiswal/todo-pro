@@ -12,13 +12,21 @@ export const sendServerRequest = async (
   token?: string
 ) => {
   try {
-    let headers = { 'Content-Type': 'application/json' }
+    const correlationId = crypto.randomUUID()
+    let headers = {
+      'Content-Type': 'application/json',
+      'x-correlation-id': correlationId,
+    }
 
     if (token) {
       headers = Object.assign(headers, {
         authorization: `Bearer ${token ?? ''}`,
       })
     }
+
+    logger.info(
+      `Sending request for - ${method.toUpperCase()} ${url} with correlation id - ${correlationId}`
+    )
 
     const response = await fetch(url, {
       method,
