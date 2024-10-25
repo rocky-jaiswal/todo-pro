@@ -17,7 +17,7 @@ export const taskRouter = createTRPCRouter({
       })
     )
     .mutation(async ({ ctx, input }) => {
-      const responseBody = (await sendServerRequest(
+      const responseBody = await sendServerRequest(
         `${env.MAIN_API_URL}/v1/tasks/`,
         'post',
         JSON.stringify({
@@ -29,9 +29,9 @@ export const taskRouter = createTRPCRouter({
         'creating task',
         ctx.logger,
         ctx.session.token
-      )) as Task
+      )
 
-      return responseBody
+      return responseBody as Task
     }),
   markAsCompleted: protectedProcedure
     .input(
@@ -40,16 +40,16 @@ export const taskRouter = createTRPCRouter({
       })
     )
     .mutation(async ({ ctx, input }) => {
-      const responseBody = (await sendServerRequest(
+      const responseBody = await sendServerRequest(
         `${env.MAIN_API_URL}/v1/tasks/${input.id}/completion/`,
         'post',
         undefined,
         'completing task',
         ctx.logger,
         ctx.session.token
-      )) as Task
+      )
 
-      return responseBody
+      return responseBody as Task
     }),
   deleteTask: protectedProcedure
     .input(
@@ -58,14 +58,14 @@ export const taskRouter = createTRPCRouter({
       })
     )
     .mutation(async ({ ctx, input }) => {
-      const _responseBody = (await sendServerRequest(
+      const _responseBody = await sendServerRequest(
         `${env.MAIN_API_URL}/v1/tasks/${input.id}/`,
         'delete',
         undefined,
         'deleting task',
         ctx.logger,
         ctx.session.token
-      )) as Task
+      )
 
       return {}
     }),

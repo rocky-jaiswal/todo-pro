@@ -15,7 +15,7 @@ export const taskListRouter = createTRPCRouter({
       })
     )
     .mutation(async ({ ctx, input }) => {
-      const responseBody = (await sendServerRequest(
+      const responseBody = await sendServerRequest(
         `${env.MAIN_API_URL}/v1/task-lists/`,
         'post',
         JSON.stringify({
@@ -25,9 +25,9 @@ export const taskListRouter = createTRPCRouter({
         'creating task list',
         ctx.logger,
         ctx.session.token
-      )) as TaskList
+      )
 
-      return responseBody
+      return responseBody as TaskList
     }),
   getListDetails: protectedProcedure
     .input(
@@ -36,16 +36,16 @@ export const taskListRouter = createTRPCRouter({
       })
     )
     .query(async ({ ctx, input }) => {
-      const responseBody = (await sendServerRequest(
+      const responseBody = await sendServerRequest(
         `${env.MAIN_API_URL}/v1/task-lists/${input.id}`,
         'get',
         undefined,
         'fetching task list',
         ctx.logger,
         ctx.session.token
-      )) as TaskList
+      )
 
-      return responseBody
+      return responseBody as TaskList
     }),
   getTasksForList: protectedProcedure
     .input(
@@ -54,16 +54,16 @@ export const taskListRouter = createTRPCRouter({
       })
     )
     .query(async ({ ctx, input }) => {
-      const responseBody = (await sendServerRequest(
+      const responseBody = await sendServerRequest(
         `${env.MAIN_API_URL}/v1/task-lists/${input.id}/tasks/`,
         'get',
         undefined,
         'fetching tasks for a list',
         ctx.logger,
         ctx.session.token
-      )) as Task[]
+      )
 
-      return responseBody
+      return responseBody as Task[]
     }),
   deleteList: protectedProcedure
     .input(
@@ -72,14 +72,14 @@ export const taskListRouter = createTRPCRouter({
       })
     )
     .mutation(async ({ ctx, input }) => {
-      const _responseBody = (await sendServerRequest(
+      const _responseBody = await sendServerRequest(
         `${env.MAIN_API_URL}/v1/task-lists/${input.listId}/`,
         'delete',
         undefined,
         'deleting task list',
         ctx.logger,
         ctx.session.token
-      )) as Task[]
+      )
 
       return {}
     }),

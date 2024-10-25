@@ -1,5 +1,6 @@
 package dev.rockyj.todopro.services
 
+import dev.rockyj.todopro.configuration.CheckOwnership
 import dev.rockyj.todopro.domain.dtos.TaskListDTO
 import dev.rockyj.todopro.domain.dtos.UserDTO
 import dev.rockyj.todopro.domain.entities.TaskList
@@ -33,7 +34,7 @@ class TaskListService(val taskListsRepository: TaskListsRepository, val usersRep
         val usr = usersRepository.findById(userId)
 
         if (usr.isEmpty) {
-            throw RuntimeException("user not found while creating list")
+            throw IllegalAccessException("user not found while creating list")
         }
 
         val taskList = TaskList().apply {
@@ -52,32 +53,16 @@ class TaskListService(val taskListsRepository: TaskListsRepository, val usersRep
         )
     }
 
+    @CheckOwnership(resoourceName = "taskList")
     fun findByUserIdAndId(userId: UUID, listId: UUID): TaskListDTO {
-        val user = usersRepository.findById(userId)
         val list = taskListsRepository.findByIdAndUserId(listId, userId)
-
-        if (user.isEmpty) {
-            throw RuntimeException("user not found while listing tasks")
-        }
-
-        if (list.isEmpty) {
-            throw RuntimeException("list not found while listing tasks")
-        }
 
         return list.get().toDTO()
     }
 
+    @CheckOwnership(resoourceName = "taskList")
     fun deleteTaskListByUserIdAndId(userId: UUID, listId: UUID) {
-        val user = usersRepository.findById(userId)
         val list = taskListsRepository.findByIdAndUserId(listId, userId)
-
-        if (user.isEmpty) {
-            throw RuntimeException("user not found while deleting task list")
-        }
-
-        if (list.isEmpty) {
-            throw RuntimeException("list not found while deleting task list")
-        }
 
         taskListsRepository.delete(list.get())
     }
