@@ -11,7 +11,7 @@ services:
       POSTGRES_USER: "app_dev"
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     volumes:
-      - /opt/postgres/data:/var/lib/postgresql/data:z
+      - /opt/app/postgres/data:/var/lib/postgresql/data:z
   db-helper:
     networks:
       - appnet
@@ -33,7 +33,7 @@ services:
     ports:
       - "9090:9090"
     environment:
-      NODE_ENV: production
+      NODE_ENV: development # changed in yarn command
       DB_CONN: ${DB_CONN_AUTH}
       AUTH_SERVICE_SECRET: ${AUTH_SERVICE_SECRET}
     command: "yarn serve"
@@ -46,7 +46,7 @@ services:
     ports:
       - "3000:3000"
     environment:
-      NODE_ENV: development # changed in yarn command
+      NODE_ENV: production
     depends_on:
       - auth-service
   todo-pro-api:
