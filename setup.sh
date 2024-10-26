@@ -1,6 +1,6 @@
 #!/bin/sh
 
-AUTH_SERVICE_SECRET="<changeme>"
+AUTH_SERVICE_SECRET=`cat .secret | tr -d '\n'`
 POSTGRES_PASSWORD=`openssl rand -hex 32`
 WEB_TOKEN_SECRET=`openssl rand -hex 32`
 
