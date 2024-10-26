@@ -9,7 +9,6 @@ RUN rm -rf node_modules/
 RUN yarn
 RUN yarn clean
 RUN yarn build 
-RUN yarn secrets:unlock:production
 
 EXPOSE 9090
 
