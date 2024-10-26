@@ -1,0 +1,16 @@
+FROM node:20-alpine
+
+RUN mkdir -p /opt/app
+ADD . /opt/app
+WORKDIR  /opt/app
+
+RUN rm -rf node_modules/
+
+RUN yarn
+RUN yarn clean
+RUN yarn build 
+RUN yarn secrets:unlock:production
+
+EXPOSE 9090
+
+CMD ["yarn", "serve"]

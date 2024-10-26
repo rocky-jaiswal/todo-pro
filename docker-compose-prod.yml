@@ -28,15 +28,16 @@ services:
   auth-service:
     networks:
       - appnet
+    image: rockyj/auth-service:latest
     build:
       context: ./auth-service
+      dockerfile: Dockerfile-prod
     ports:
       - "9090:9090"
     environment:
       NODE_ENV: development # changed in yarn command
       DB_CONN: ${DB_CONN_AUTH}
       AUTH_SERVICE_SECRET: ${AUTH_SERVICE_SECRET}
-    command: "yarn serve"
     depends_on:
       - db
   todo-pro-web:
