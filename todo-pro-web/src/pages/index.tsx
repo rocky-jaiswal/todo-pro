@@ -16,7 +16,7 @@ const Home: NextPage = () => {
   const [display, setDisplay] = useState<ShowLogin>({ showLogin: true })
 
   return (
-    <div>
+    <div className="flex items-start justify-center">
       <Head>
         <title>To-do Pro</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
