@@ -4,4 +4,5 @@ RUN mkdir -p /opt/app
 ADD . /opt/app
 WORKDIR /opt/app
 
-ENV NODE_ENV=$NODE_ENV
+RUN rm -rf node_modules/
+RUN yarn

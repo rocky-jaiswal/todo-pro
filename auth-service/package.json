@@ -9,7 +9,7 @@
     "secrets:unlock": "node bin/unlockSecret.mjs $NODE_ENV $AUTH_SERVICE_SECRET",
     "secrets:unlock:production": "node bin/unlockSecret.mjs production $AUTH_SERVICE_SECRET && cp secrets/production.env ./.env",
     "dev": "yarn && yarn clean && yarn build && yarn secrets:unlock && DOTENV_CONFIG_PATH=$DOTENV_CONFIG_PATH DB_CONN=$DB_CONN npx knex migrate:latest && DOTENV_CONFIG_PATH=$DOTENV_CONFIG_PATH DB_CONN=$DB_CONN npx nodemon src/index.ts",
-    "serve": "yarn && yarn clean && yarn build && yarn secrets:unlock:production && DB_CONN=$DB_CONN npx knex migrate:latest && DB_CONN=$DB_CONN node dist/index.js"
+    "serve": "yarn && yarn clean && yarn build && yarn secrets:unlock:production && DB_CONN=$DB_CONN npx knex migrate:latest && DB_CONN=$DB_CONN NODE_ENV=production node dist/index.js"
   },
   "dependencies": {
     "@fastify/oauth2": "^7.0.0",

@@ -22,7 +22,7 @@ services:
     environment:
       NODE_ENV: development
       DB_CONN: ${DB_CONN_APP}
-    command: "yarn install && yarn migrate"
+    command: "yarn migrate"
     depends_on:
       - db
   auth-service:
@@ -46,7 +46,7 @@ services:
     ports:
       - "3000:3000"
     environment:
-      NODE_ENV: production
+      NODE_ENV: development # changed in yarn command
     depends_on:
       - auth-service
   todo-pro-api:
