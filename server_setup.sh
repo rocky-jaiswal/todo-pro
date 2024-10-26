@@ -12,7 +12,6 @@ echo "AUTH_SERVICE_SECRET=$AUTH_SERVICE_SECRET" >> .env
 echo "DB_CONN_AUTH="postgresql://app_dev:$POSTGRES_PASSWORD@db:5432/auth_service_dev"" >> .env
 echo "DB_CONN_APP="postgresql://app_dev:$POSTGRES_PASSWORD@db:5432/todo_pro_dev"" >> .env
 
-
 # DB data directory
 mkdir -p /opt/app/postgres/data
 
