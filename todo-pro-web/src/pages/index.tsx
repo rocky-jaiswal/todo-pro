@@ -33,7 +33,7 @@ const Home: NextPage = () => {
           sizes="180x180"
           href="/apple-touch-icon.png"
         />
-        <link rel="manifest" href="/site.webmanifest" />
+        <link rel="manifest" href="/manifest.json" />
       </Head>
       <main className="flex flex-col min-h-screen lg:flex-row max-w-7xl">
         <div className="flex flex-col p-8 lg:w-1/2">
