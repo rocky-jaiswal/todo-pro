@@ -32,7 +32,7 @@ export const CreateTask = (props: Props) => {
     <div className="flex flex-col items-end">
       <form method="post">
         <label className="input input-bordered flex items-center gap-2 py-2 my-2">
-          Name *:
+          Name:
           <input
             type="text"
             placeholder="Name"

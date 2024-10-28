@@ -23,7 +23,7 @@ export const CreateTaskList = (props: Props) => {
     <div className="flex flex-col max-w-96 my-6">
       <form method="post">
         <label className="input input-bordered flex items-center gap-2 py-2 my-2">
-          Name *:
+          Name:
           <input
             type="text"
             placeholder="Name"
@@ -42,7 +42,7 @@ export const CreateTaskList = (props: Props) => {
         <button
           className="btn btn-primary p-2 my-4"
           type="submit"
-          disabled={createTaskListMutation.isLoading}
+          disabled={!name || createTaskListMutation.isLoading}
           onClick={(e) => {
             e.preventDefault()
             createTaskListMutation

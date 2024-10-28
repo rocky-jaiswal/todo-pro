@@ -20,7 +20,20 @@ const Home: NextPage = () => {
       <Head>
         <title>To-do Pro</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="icon" href="/favicon.svg" />
+        <link
+          rel="icon"
+          type="image/png"
+          href="/favicon-96x96.png"
+          sizes="96x96"
+        />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <link rel="shortcut icon" href="/favicon.ico" />
+        <link
+          rel="apple-touch-icon"
+          sizes="180x180"
+          href="/apple-touch-icon.png"
+        />
+        <link rel="manifest" href="/site.webmanifest" />
       </Head>
       <main className="flex flex-col min-h-screen lg:flex-row max-w-7xl">
         <div className="flex flex-col p-8 lg:w-1/2">

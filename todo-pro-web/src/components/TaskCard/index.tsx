@@ -1,7 +1,12 @@
 import * as React from 'react'
 import Image from 'next/image'
 
-import { endOfToday, isBefore, isToday } from 'date-fns'
+import {
+  differenceInCalendarDays,
+  endOfToday,
+  isBefore,
+  isToday,
+} from 'date-fns'
 
 import { type Task as TaskType } from '../../server/types'
 import { api } from '../../utils/api'
@@ -13,7 +18,13 @@ interface Props {
 
 const isOverdue = (dueBy: Date | null) =>
   dueBy && isBefore(dueBy, endOfToday()) && !isToday(dueBy)
+
 const isDueToday = (dueBy: Date | null) => dueBy && isToday(dueBy)
+
+const daysDiff = (dueBy: Date) => {
+  const diff = Math.abs(differenceInCalendarDays(dueBy, endOfToday()))
+  return diff === 1 ? `${diff} day` : `${diff} days`
+}
 
 export const TaskCard = (props: Props) => {
   const deleteTaskMutation = api.task.deleteTask.useMutation()
@@ -27,17 +38,28 @@ export const TaskCard = (props: Props) => {
       className={`flex flex-row justify-between 
               border border-secondary rounded-md 
               px-4 py-1 my-1 
-              ${isOverdue(task.dueBy) ? 'bg-error' : ''} 
-              ${isDueToday(task.dueBy) ? 'bg-warning' : ''}
+              ${!task.completed && isOverdue(task.dueBy) ? 'bg-error' : ''} 
+              ${!task.completed && isDueToday(task.dueBy) ? 'bg-warning' : ''}
               ${task.completed ? 'bg-[#769e6b]' : ''}
             `}
     >
       <div
-        className={`flex items-center ${task.completed ? 'line-through' : ''}`}
+        className={`flex items-center justify-between w-full px-2 ${task.completed ? 'line-through' : ''}`}
       >
-        {`${task.name} 
-              ${isOverdue(task.dueBy) ? ' (Overdue)' : ''} 
-              ${isDueToday(task.dueBy) ? ' (Due today)' : ''}`}
+        <div>{task.name}</div>
+        <div
+          className={
+            task.dueBy && !task.completed ? 'text-sm italic' : 'hidden'
+          }
+        >
+          {task.dueBy
+            ? isOverdue(task.dueBy)
+              ? `Overdue by ${daysDiff(task.dueBy)}`
+              : isDueToday(task.dueBy)
+                ? 'Due today'
+                : `Due in ${daysDiff(task.dueBy)}`
+            : ''}
+        </div>
       </div>
       <div>
         <details className="dropdown dropdown-end" ref={taskRef}>
