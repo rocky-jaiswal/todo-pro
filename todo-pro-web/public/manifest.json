@@ -1,19 +1,28 @@
 {
   "name": "To-do Pro",
   "short_name": "To-do Pro",
+  "description": "Manage your to do lists with ease",
   "start_url": "/",
   "icons": [
     {
       "src": "/web-app-manifest-192x192.png",
       "sizes": "192x192",
       "type": "image/png",
-      "purpose": "maskable"
+      "purpose": "any"
     },
     {
       "src": "/web-app-manifest-512x512.png",
       "sizes": "512x512",
       "type": "image/png",
-      "purpose": "maskable"
+      "purpose": "any"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/screenshot-512.png",
+      "sizes": "512x1144",
+      "type": "image/png",
+      "purpose": "any"
     }
   ],
   "theme_color": "#1a103d",
