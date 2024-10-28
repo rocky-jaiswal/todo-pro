@@ -1,6 +1,7 @@
 {
   "name": "To-do Pro",
   "short_name": "To-do Pro",
+  "start_url": "/",
   "icons": [
     {
       "src": "/web-app-manifest-192x192.png",
