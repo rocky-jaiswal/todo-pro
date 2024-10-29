@@ -1,6 +1,7 @@
 import type { GetServerSidePropsContext, NextPage } from 'next'
-import Head from 'next/head'
 import cookie from 'cookie'
+
+import AppHeader from '../components/AppHeader'
 
 export function getServerSideProps(context: GetServerSidePropsContext) {
   context.res.setHeader(
@@ -24,10 +25,7 @@ export function getServerSideProps(context: GetServerSidePropsContext) {
 const Logout: NextPage = () => {
   return (
     <>
-      <Head>
-        <title>Staffing Pro</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+      <AppHeader />
       <main className="flex">
         <h2>Logging out ...</h2>
       </main>

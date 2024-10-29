@@ -2,9 +2,9 @@ package dev.rockyj.todopro.commands
 
 import dev.rockyj.todopro.domain.dtos.TaskDTO
 import dev.rockyj.todopro.domain.dtos.TaskListDTO
+import dev.rockyj.todopro.domain.dtos.UpdatedTaskListDTO
 import dev.rockyj.todopro.services.TaskListService
 import dev.rockyj.todopro.services.TaskService
-
 import org.springframework.stereotype.Service
 import java.util.*
 
@@ -32,5 +32,10 @@ class TaskListCommand (val listService: TaskListService, val taskService: TaskSe
 
     fun deleteTaskListByUserIdAndId(userId: UUID, listId: UUID) {
         listService.deleteTaskListByUserIdAndId(userId, listId)
+    }
+
+    fun editTaskList(userId: UUID, updatedTaskListDTO: UpdatedTaskListDTO): TaskListDTO {
+        val dto = listService.editTaskList(userId, updatedTaskListDTO.listId, updatedTaskListDTO)
+        return dto
     }
 }

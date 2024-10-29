@@ -2,6 +2,7 @@ package dev.rockyj.todopro.services
 
 import dev.rockyj.todopro.configuration.CheckOwnership
 import dev.rockyj.todopro.domain.dtos.TaskListDTO
+import dev.rockyj.todopro.domain.dtos.UpdatedTaskListDTO
 import dev.rockyj.todopro.domain.dtos.UserDTO
 import dev.rockyj.todopro.domain.entities.TaskList
 import dev.rockyj.todopro.repositories.TaskListsRepository
@@ -67,5 +68,19 @@ class TaskListService(val taskListsRepository: TaskListsRepository, val usersRep
         taskListsRepository.delete(list.get())
 
         return mapOf(Pair("id", listId.toString()))
+    }
+
+    @CheckOwnership(resourceName = "taskList")
+    fun editTaskList(userId: UUID, listId: UUID, updatedTaskListDTO: UpdatedTaskListDTO): TaskListDTO {
+        val list = taskListsRepository.findByIdAndUserId(listId, userId)
+
+        val updatedList = list.get().apply {
+            name = updatedTaskListDTO.name
+            description = updatedTaskListDTO.description
+        }
+
+        val record = taskListsRepository.save(updatedList)
+
+        return record.toDTO()
     }
 }

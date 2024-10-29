@@ -2,8 +2,10 @@ package dev.rockyj.todopro.controllers
 
 import dev.rockyj.todopro.commands.TaskListCommand
 import dev.rockyj.todopro.controllers.requests.TaskListCreateRequest
+import dev.rockyj.todopro.controllers.requests.TaskListEditRequest
 import dev.rockyj.todopro.domain.dtos.TaskDTO
 import dev.rockyj.todopro.domain.dtos.TaskListDTO
+import dev.rockyj.todopro.domain.dtos.UpdatedTaskListDTO
 
 import jakarta.validation.Valid
 import jakarta.validation.constraints.NotNull
@@ -50,6 +52,16 @@ class TaskListsController(val command: TaskListCommand) {
 
         val list = command.createTaskList(userId, taskListCreateRequest.name, taskListCreateRequest.description)
         return mapOf(Pair("id", list.id!!.toString()))
+    }
+
+    @PutMapping("/{id}/")
+    fun editTaskList(@PathVariable("id") @NotNull listId: UUID, @Valid @RequestBody taskListEditRequest: TaskListEditRequest): TaskListDTO {
+        val userId = getUserIdFromSecurityContext()
+
+        return command.editTaskList(
+            userId,
+            UpdatedTaskListDTO(listId, taskListEditRequest.name, taskListEditRequest.description)
+        )
     }
 
     @DeleteMapping("/{id}/")

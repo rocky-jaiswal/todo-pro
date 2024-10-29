@@ -3,6 +3,7 @@ package dev.rockyj.todopro.services
 import dev.rockyj.todopro.configuration.CheckOwnership
 import dev.rockyj.todopro.domain.dtos.TaskDTO
 import dev.rockyj.todopro.domain.dtos.TaskRequestDTO
+import dev.rockyj.todopro.domain.dtos.UpdatedTaskDTO
 import dev.rockyj.todopro.domain.entities.Task
 import dev.rockyj.todopro.repositories.TaskListsRepository
 import dev.rockyj.todopro.repositories.TasksRepository
@@ -68,6 +69,22 @@ class TaskService(
 
         val updatedTask = task.get().apply {
             completed = true
+        }
+
+        val record = tasksRepository.save(updatedTask)
+        return record.toDTO()
+    }
+
+    @CheckOwnership(resourceName = "task")
+    fun editTask(userId: UUID, taskId: UUID, updatedTaskDTO: UpdatedTaskDTO): TaskDTO {
+        val task = tasksRepository.findByIdAndUserId(taskId, userId)
+
+        val updatedTask = task.get().apply {
+            name = updatedTaskDTO.name
+            description = updatedTaskDTO.description
+            dueBy = if (updatedTaskDTO.dueBy != null)
+                LocalDate.parse(updatedTaskDTO.dueBy, DateTimeFormatter.ofPattern("yyyy-MM-dd"))
+            else null
         }
 
         val record = tasksRepository.save(updatedTask)

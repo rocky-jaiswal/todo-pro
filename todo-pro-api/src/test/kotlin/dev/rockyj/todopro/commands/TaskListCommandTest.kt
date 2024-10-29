@@ -1,6 +1,7 @@
 package dev.rockyj.todopro.commands
 
 import dev.rockyj.todopro.TestcontainersConfiguration
+import dev.rockyj.todopro.domain.dtos.UpdatedTaskListDTO
 import dev.rockyj.todopro.domain.entities.TaskList
 import dev.rockyj.todopro.domain.entities.User
 import dev.rockyj.todopro.repositories.TaskListsRepository
@@ -63,7 +64,7 @@ class TaskListCommandTest(@Autowired val taskListRepository: TaskListsRepository
     }
 
     @Test
-    fun shouldRaiseErrorIfListIsNotOwned() {
+    fun shouldRaiseErrorIfListIsNotOwned_List() {
         val userId = UUID.randomUUID()
         val userId2 = UUID.randomUUID()
 
@@ -81,5 +82,28 @@ class TaskListCommandTest(@Autowired val taskListRepository: TaskListsRepository
         })
 
         assertThrows<IllegalAccessException> { taskListCommand.findTaskListByIdAndUserId(userId2, list.id) }
+    }
+
+    @Test
+    fun shouldRaiseErrorIfListIsNotOwned_Edit() {
+        val userId = UUID.randomUUID()
+        val userId2 = UUID.randomUUID()
+
+        val usr = usersRepository.save(User().apply {
+            id = userId
+        })
+
+        usersRepository.save(User().apply {
+            id = userId2
+        })
+
+        val list = taskListRepository.save(TaskList().apply {
+            name = "dummy list"
+            user = usr
+        })
+
+        assertThrows<IllegalAccessException> {
+            taskListCommand.editTaskList(userId2, UpdatedTaskListDTO(list.id, "new name", "new desc"))
+        }
     }
 }
