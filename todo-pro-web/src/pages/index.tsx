@@ -7,8 +7,8 @@ import AppHeader from '../components/AppHeader'
 import LoginForm from '../components/LoginForm'
 import RegistrationForm from '../components/RegistrationForm'
 import LoginRegister from '../components/LoginRegister'
+import SocialLogin from '../components/SocialLogin'
 import { Footer } from '../components/Footer'
-// import SocialLogin from '../components/SocialLogin'
 
 interface ShowLogin {
   showLogin: boolean
@@ -39,7 +39,7 @@ const Home: NextPage = () => {
           <LoginRegister display={display} setDisplay={setDisplay} />
           <LoginForm display={display.showLogin} />
           <RegistrationForm display={!display.showLogin} />
-          {/* <SocialLogin /> */}
+          <SocialLogin />
         </div>
       </main>
       <Footer />
