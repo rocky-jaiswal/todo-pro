@@ -18,7 +18,7 @@ const Home: NextPage = () => {
   const [display, setDisplay] = useState<ShowLogin>({ showLogin: true })
 
   return (
-    <div className="flex flex-col items-start min-h-screen">
+    <div className="flex flex-col items-center min-h-screen">
       <AppHeader />
       <main className="flex flex-col lg:flex-row max-w-7xl min-h-[800px]">
         <div className="flex flex-col p-8 lg:w-1/2">
