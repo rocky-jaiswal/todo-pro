@@ -72,11 +72,34 @@ export const taskListRouter = createTRPCRouter({
       })
     )
     .mutation(async ({ ctx, input }) => {
-      const _responseBody = await sendServerRequest(
+      await sendServerRequest(
         `${env.MAIN_API_URL}/v1/task-lists/${input.listId}/`,
         'delete',
         undefined,
         'deleting task list',
+        ctx.logger,
+        ctx.session.token
+      )
+
+      return {}
+    }),
+  editList: protectedProcedure
+    .input(
+      z.object({
+        listId: z.string().uuid(),
+        name: z.string().min(1).max(50),
+        description: z.string().max(150).nullable(),
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      await sendServerRequest(
+        `${env.MAIN_API_URL}/v1/task-lists/${input.listId}/`,
+        'put',
+        JSON.stringify({
+          name: input.name,
+          description: input.description,
+        }),
+        'editing task list',
         ctx.logger,
         ctx.session.token
       )

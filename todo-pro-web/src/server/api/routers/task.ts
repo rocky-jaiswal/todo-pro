@@ -58,7 +58,7 @@ export const taskRouter = createTRPCRouter({
       })
     )
     .mutation(async ({ ctx, input }) => {
-      const _responseBody = await sendServerRequest(
+      await sendServerRequest(
         `${env.MAIN_API_URL}/v1/tasks/${input.id}/`,
         'delete',
         undefined,

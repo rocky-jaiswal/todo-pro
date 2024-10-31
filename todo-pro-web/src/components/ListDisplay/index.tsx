@@ -1,10 +1,13 @@
 import * as React from 'react'
+import { useState } from 'react'
 import Image from 'next/image'
 
 import { type TaskList as TaskListType } from '../../server/types'
 import { api } from '../../utils/api'
+import { EditTaskList } from '../EditTaskList'
 
 interface Props {
+  listId: string
   taskListData: TaskListType
   onListUpdate: () => unknown
   onListsUpdate: () => unknown
@@ -12,8 +15,22 @@ interface Props {
 }
 
 export const ListDisplay = (props: Props) => {
+  const [displayEditForm, setDisplayEditForm] = useState<boolean>(false)
   const deleteListMutation = api.taskList.deleteList.useMutation()
   const detailsRef = React.useRef<HTMLDetailsElement | null>(null)
+
+  if (displayEditForm) {
+    return (
+      <EditTaskList
+        listId={props.listId}
+        listName={props.taskListData.name || ''}
+        listDescription={props.taskListData.description || ''}
+        setEditListFormDisplay={setDisplayEditForm}
+        onListUpdate={props.onListUpdate}
+        onListsUpdate={props.onListsUpdate}
+      />
+    )
+  }
 
   return (
     <div className="flex flex-row justify-between items-baseline border rounded-md p-4 my-4">
@@ -31,9 +48,9 @@ export const ListDisplay = (props: Props) => {
             <Image src="/dots.png" width={20} height={20} alt="actions" />
           </summary>
           <ul className="menu dropdown-content bg-[#2f3389] rounded-box z-[1] w-52 p-2 shadow">
-            {/* <li>
-              <button>Edit</button>
-            </li> */}
+            <li>
+              <button onClick={() => setDisplayEditForm(true)}>Edit</button>
+            </li>
             <li>
               <button
                 disabled={deleteListMutation.isLoading}
