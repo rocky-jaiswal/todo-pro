@@ -7,6 +7,7 @@ import AppHeader from '../components/AppHeader'
 import LoginForm from '../components/LoginForm'
 import RegistrationForm from '../components/RegistrationForm'
 import LoginRegister from '../components/LoginRegister'
+import { Footer } from '../components/Footer'
 // import SocialLogin from '../components/SocialLogin'
 
 interface ShowLogin {
@@ -17,9 +18,9 @@ const Home: NextPage = () => {
   const [display, setDisplay] = useState<ShowLogin>({ showLogin: true })
 
   return (
-    <div className="flex items-start justify-center">
+    <div className="flex flex-col items-start min-h-screen">
       <AppHeader />
-      <main className="flex flex-col min-h-screen lg:flex-row max-w-7xl">
+      <main className="flex flex-col lg:flex-row max-w-7xl min-h-[800px]">
         <div className="flex flex-col p-8 lg:w-1/2">
           <div className="p-4 text-white">
             <h1 className="text-4xl">Welcome to To-do Pro</h1>
@@ -41,6 +42,7 @@ const Home: NextPage = () => {
           {/* <SocialLogin /> */}
         </div>
       </main>
+      <Footer />
     </div>
   )
 }

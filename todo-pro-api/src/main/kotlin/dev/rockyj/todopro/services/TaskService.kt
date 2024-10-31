@@ -49,7 +49,7 @@ class TaskService(
 
     @CheckOwnership(resourceName = "taskList")
     fun findByUserIdAndListId(userId: UUID, listId: UUID): List<TaskDTO> {
-        val tasks = tasksRepository.findAllByUserIdAndTaskListId(userId, listId)
+        val tasks = tasksRepository.findAllByUserIdAndTaskListIdOrderByCreatedAt(userId, listId)
 
         return tasks.map { it.toDTO() }
     }

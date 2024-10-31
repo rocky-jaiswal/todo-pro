@@ -29,6 +29,12 @@ class Task: Serializable {
     @Column(name = "due_by")
     var dueBy: LocalDate? = null
 
+    @Column(name = "created_at")
+    var createdAt: LocalDateTime? = null
+
+    @Column(name = "updated_at")
+    var updatedAt: LocalDateTime? = null
+
     @ManyToOne
     @JoinColumn(name = "tasklist_id")
     var taskList: TaskList? = null

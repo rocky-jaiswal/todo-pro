@@ -11,7 +11,7 @@ import java.util.*
 interface TasksRepository : CrudRepository<Task, UUID> {
     fun findAllByUserAndTaskList(user: User, list: TaskList): List<Task>
 
-    fun findAllByUserIdAndTaskListId(userId: UUID, listId: UUID): List<Task>
+    fun findAllByUserIdAndTaskListIdOrderByCreatedAt(userId: UUID, listId: UUID): List<Task>
 
     fun findByIdAndUserId(taskId: UUID, userId: UUID): Optional<Task>
 }

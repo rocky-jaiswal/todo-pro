@@ -10,7 +10,7 @@ import java.util.*
 
 @Repository
 interface TaskListsRepository : CrudRepository<TaskList, UUID> {
-    @Query("select t from TaskList t where t.user = :user")
+    @Query("select t from TaskList t where t.user = :user order by t.createdAt")
     fun findAllByUser(@Param("user") user: User): List<TaskList>
 
     fun findByIdAndUserId(listId: UUID, userId: UUID): Optional<TaskList>

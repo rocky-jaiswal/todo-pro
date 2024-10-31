@@ -4,7 +4,7 @@ import * as React from 'react'
 interface Props {}
 
 export const Loading = (_props: Props) => (
-  <div className="flex flex-col justtify-center items-center w-full p-6">
+  <div className="flex flex-col justify-center items-center w-full p-6">
     <span className="loading loading-spinner text-primary"></span>
   </div>
 )

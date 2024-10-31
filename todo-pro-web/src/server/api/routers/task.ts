@@ -69,4 +69,29 @@ export const taskRouter = createTRPCRouter({
 
       return {}
     }),
+  updateTask: protectedProcedure
+    .input(
+      z.object({
+        id: z.string().uuid(),
+        name: z.string().min(1).max(50),
+        description: z.string().max(150).nullable(),
+        dueBy: z.string().date().nullable(),
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      const responseBody = await sendServerRequest(
+        `${env.MAIN_API_URL}/v1/tasks/${input.id}/`,
+        'put',
+        JSON.stringify({
+          name: input.name,
+          description: input.description,
+          dueBy: input.dueBy,
+        }),
+        'updating task',
+        ctx.logger,
+        ctx.session.token
+      )
+
+      return responseBody as Task
+    }),
 })

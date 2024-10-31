@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { useState } from 'react'
 import Image from 'next/image'
 
 import {
@@ -10,6 +11,7 @@ import {
 
 import { type Task as TaskType } from '../../server/types'
 import { api } from '../../utils/api'
+import { EditTask } from '../EditTask'
 
 interface Props {
   task: TaskType
@@ -27,11 +29,23 @@ const daysDiff = (dueBy: Date) => {
 }
 
 export const TaskCard = (props: Props) => {
+  const [displayEditForm, setDisplayEditForm] = useState<boolean>(false)
+
   const deleteTaskMutation = api.task.deleteTask.useMutation()
   const markDoneMutation = api.task.markAsCompleted.useMutation()
 
   const { task } = props
   const taskRef = React.useRef<HTMLDetailsElement | null>(null)
+
+  if (displayEditForm) {
+    return (
+      <EditTask
+        task={props.task}
+        setDisplayEditForm={setDisplayEditForm}
+        onTasksUpdate={props.onTasksUpdate}
+      />
+    )
+  }
 
   return (
     <div
@@ -84,9 +98,9 @@ export const TaskCard = (props: Props) => {
                 Mark done
               </button>
             </li>
-            {/* <li>
-              <button>Edit</button>
-            </li> */}
+            <li>
+              <button onClick={() => setDisplayEditForm(true)}>Edit</button>
+            </li>
             <li>
               <button
                 disabled={deleteTaskMutation.isLoading}

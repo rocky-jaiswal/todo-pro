@@ -5,6 +5,7 @@ import dev.rockyj.todopro.domain.dtos.UserDTO
 import jakarta.persistence.*
 import org.hibernate.Hibernate
 import java.io.Serializable
+import java.time.LocalDateTime
 import java.util.*
 
 @Entity
@@ -20,6 +21,12 @@ class TaskList: Serializable {
 
     @Column(columnDefinition = "TEXT")
     var description: String? = null
+
+    @Column(name = "created_at")
+    var createdAt: LocalDateTime? = null
+
+    @Column(name = "updated_at")
+    var updatedAt: LocalDateTime? = null
 
     @OneToMany(mappedBy = "taskList", cascade = [CascadeType.ALL], orphanRemoval = true, fetch = FetchType.LAZY)
     var tasks: List<Task> = emptyList()

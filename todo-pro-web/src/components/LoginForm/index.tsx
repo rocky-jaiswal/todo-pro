@@ -77,9 +77,9 @@ function LoginForm(props: Props) {
           )}
         </button>
       </form>
-      <Link href={'/'} className="py-4 text-blue-500 underline">
+      {/* <Link href={'/'} className="py-4 text-blue-500 underline">
         Forgot password?
-      </Link>
+      </Link> */}
     </div>
   )
 }
