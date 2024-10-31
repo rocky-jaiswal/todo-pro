@@ -1,4 +1,5 @@
 import { type NextPage } from 'next'
+import Link from 'next/link'
 
 import AppHeader from '../components/AppHeader'
 
@@ -14,12 +15,15 @@ const Home: NextPage = () => {
               href="https://github.com/rocky-jaiswal/todo-pro"
               target="_blank"
               rel="noreferrer"
-              className={'text-primary'}
+              className={'text-primary underline'}
             >
               Github
             </a>
           </p>
           <p>For any issues / feedback please raise a Github issue.</p>
+          <Link href={'/'} className="py-4 text-blue-500 underline">
+            Back
+          </Link>
         </div>
       </main>
     </div>
