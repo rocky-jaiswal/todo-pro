@@ -12,8 +12,8 @@ A simple CRUD application to play around with - Next.js + TRPC & Spring Boot + J
 
 - But for a new setup we need to pre-populate the "known" secrets in `.env` file since `auth-service` needs secure secrets
 - To generate and set new secrets run - 
-  - `cd auth-service && node bin/generateKeyPair.mjs`. This generates a new RSA key pair for JWT signing (and new JWKS to be copied)
-  - Copy the pem key file secret in the `auth-service/secrets/development.env` file
+  - `cd auth-service && node bin/generateKeyPair.mjs`. This generates a new password protected RSA key pair for JWT signing (and new JWKS to be copied)
+  - Copy the pem key file secret in the `auth-service/secrets/development.env` file and update JWKS file
   - Now run - `node generate_dev_env_file.mjs` and note the random secret
   - Using this new random secret, in auth-service also run `node bin/lockSecret.mjs development <secret>` to "lock" the secrets in the "auth-service"
   - Finally run `docker-compose up --build`
