@@ -1,0 +1,18 @@
+FROM node:20-alpine
+
+RUN mkdir -p /opt/app
+
+# Set working directory
+WORKDIR /opt/app
+
+COPY package.json ./
+COPY yarn.lock ./
+
+# Install dependencies
+RUN yarn
+
+# Copy source code
+COPY . .
+
+# Expose the application port
+EXPOSE 3000

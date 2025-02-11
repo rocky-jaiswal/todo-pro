@@ -16,9 +16,9 @@ services:
     networks:
       - appnet
     build:
-      context: ./todo-pro-db
+      context: ./todo-pro-db-helper
     volumes:
-      - ./todo-pro-db:/opt/app
+      - ./todo-pro-db-helper:/opt/app
     environment:
       NODE_ENV: development
       DB_CONN: ${DB_CONN_APP}

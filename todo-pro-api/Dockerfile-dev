@@ -1,0 +1,32 @@
+FROM amazoncorretto:21.0.6
+
+# Install Gradle
+ENV GRADLE_VERSION=8.10.2
+RUN yum update && yum install -y wget unzip \
+    && wget https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-bin.zip \
+    && unzip gradle-${GRADLE_VERSION}-bin.zip \
+    && rm gradle-${GRADLE_VERSION}-bin.zip \
+    && mv gradle-${GRADLE_VERSION} /opt/gradle \
+    && ln -s /opt/gradle/bin/gradle /usr/bin/gradle
+
+RUN mkdir -p /opt/app
+
+# Set working directory
+WORKDIR /opt/app
+
+# Copy Gradle configuration files
+COPY build.gradle.kts settings.gradle.kts gradlew ./
+COPY gradle gradle
+
+# Copy source code
+COPY src src
+
+# Enable Gradle daemon for faster builds
+ENV GRADLE_OPTS="-Dorg.gradle.daemon=true"
+
+# Set Spring devtools properties
+ENV SPRING_DEVTOOLS_REMOTE_SECRET=foobar
+ENV SPRING_DEVTOOLS_RESTART_ENABLED=true
+
+# Expose the application port
+EXPOSE 8080

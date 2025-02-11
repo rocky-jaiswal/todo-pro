@@ -31,6 +31,8 @@ dependencies {
 
 	runtimeOnly("org.postgresql:postgresql")
 
+	developmentOnly("org.springframework.boot:spring-boot-devtools")
+
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.springframework.boot:spring-boot-testcontainers")
 	testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")

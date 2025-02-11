@@ -4,11 +4,24 @@
 
 A simple CRUD application to play around with - Next.js + TRPC & Spring Boot + JPA on Kotlin
 
-## Setup (Dev Mode)
+## Run application locally
 
-- Start `docker-compose up --build`. This will start the DB, migrate the DB and start a Node.js JWT+JWKS Auth service
-- Go to the API (todo-pro-api) and run the Spring Boot application with Gradle
+- Technically, we need to simply run `docker-compose up` or `docker-compose up --build` (first run)
+- But in this case we need to pre-populate the "known" secrets in `.env` file since `auth-service` needs secure secrets
+- To generate and set new secrets run - 
+  - `cd auth-service && node bin/generateKeyPair.mjs`. This generates a new RSA key pair for JWT signing.
+  - Copy the pem key file secret in the `auth-service/secrets/development.env` file
+  - Now run - `node generate_dev_env_file.mjs` and note the random secret
+  - Using this new random secret, in auth-service also run `node bin/lockSecret.mjs development <secret>` to "lock" the secret
+  - Finally run `docker-compose up --build`
+
+## Setup for local development
+
+- Comment `api-service` and `web-service` in the `docker-compose.yml` file
+- Run `docker-compose up --build`. This will start the DB, migrate the DB and start a Node.js JWT+JWKS Auth service
+- Go to the API (todo-pro-api) and run the Spring Boot application with Gradle (I usually do this from IntelliJ Idea)
 - Go the the Web app (todo-pro-web) and run the Next.js app with `yarn dev`
+- This allows for quick feedback loop
 
 ## Under developement
 

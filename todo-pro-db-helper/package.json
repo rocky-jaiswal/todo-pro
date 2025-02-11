@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "migrate": "sleep 10 && npx knex migrate:latest",
+    "migrate": "sleep 3 && npx knex migrate:latest",
     "seed": "npx knex seed:run"
   },
   "dependencies": {

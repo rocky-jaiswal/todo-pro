@@ -3,19 +3,26 @@
 spring:
   application:
     name: "todopro"
+  devtools:
+    restart:
+      enabled: true
+    remote:
+      secret: foobar
   datasource:
     driver-class-name: org.postgresql.Driver
     db-type: postgres
     dialect: POSTGRES
     username: app_dev
-    password: ${DB_PASS}
-    url: "jdbc:postgresql://localhost:5432/todo_pro_dev"
+    password: ${POSTGRES_PASSWORD}
+    # url: "jdbc:postgresql://localhost:5432/todo_pro_dev"
+    url: "jdbc:postgresql://db:5432/todo_pro_dev"
   jpa:
     show_sql: true
     hibernate:
       ddl-auto: validate
 auth:
-  jwks-uri: "http://localhost:9090/.well-known/jwks.json"
+  # jwks-uri: "http://localhost:9090/.well-known/jwks.json"
+  jwks-uri: "http://auth-service:9090/.well-known/jwks.json"
 logging:
   pattern:
     console: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%-5level] [%-23thread] [%X{correlationId}] [%X{requestMethod}] [%X{requestUri}] [%X{user}] %logger{36} - %msg%n"

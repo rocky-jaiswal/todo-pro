@@ -24,7 +24,7 @@ const generateJwks = (environment, publicKeyPath) => {
 }
 
 const generateKeyPair = (environment) => {
-  const password = randomBytes(256).toString('hex').substr(0, 32)
+  const password = randomBytes(256).toString('hex').substring(0, 32)
 
   console.log(`Generating key for environment - ${environment}`)
   console.log(
