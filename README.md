@@ -29,3 +29,10 @@ A simple CRUD application to play around with - Next.js + TRPC & Spring Boot + J
 ## Under developement
 
 - This application is under development
+
+
+## TODOs
+
+- Priority
+- Search (by text / date)
+- Tags (search by tag)
